@@ -26,8 +26,41 @@ class BankAccount:
       print(amount,"Debit from your account")
       print("Remaining balance : ",self.balance)
 
-accounts = []
-no_of_accounts = 100000
+class Bankdata:
+  
+  @staticmethod
+  def save_data(accounts , no_of_accounts):
+    data = {
+      "accounts":[],
+      "no_of_accounts":no_of_accounts
+    }
+    for acc in accounts:
+      data["accounts"].append(vars(acc)) 
+    with open("accounts.json","w") as file:
+      json.dump(data,file,indent=4)
+    
+  @staticmethod
+  def load_data():
+    if not os.path.exists("accounts.json"):
+      return [], 100000
+
+    with open("accounts.json", "r") as file:
+        data = json.load(file)
+
+    accounts = []
+
+    for acc_data in data["accounts"]:
+      acc = BankAccount(
+          acc_data["balance"],
+          acc_data["account_no"],
+          acc_data["account_holder_name"]
+    )
+      accounts.append(acc)
+
+    return accounts, data["no_of_accounts"]
+
+
+accounts, no_of_accounts = Bankdata.load_data()
 
 while True:
     print(
@@ -47,7 +80,7 @@ while True:
       name = input("Enter your Name: ").strip()
       if not name:
         print("Name cannot be empty.")
-        continue              # go back to menu
+        continue             
   
       try:
         initial_deposit = int(input("Enter the amount of initial deposit: "))
@@ -137,6 +170,8 @@ while True:
       if not found:
         print("You do not have an account in our bank or Enter a valid account number ")
     elif 5==a:
+      Bankdata.save_data(accounts,no_of_accounts)
+      print("Data sucessfully store")
       break
     else:
       print("Select a Valid Option")

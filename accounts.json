@@ -1,0 +1,35 @@
+{
+    "accounts": [
+        {
+            "balance": 5000,
+            "account_no": 100004,
+            "account_holder_name": "harshit"
+        },
+        {
+            "balance": 5100,
+            "account_no": 100005,
+            "account_holder_name": "chandan"
+        },
+        {
+            "balance": 15000,
+            "account_no": 100006,
+            "account_holder_name": "harshit nagar"
+        },
+        {
+            "balance": 12000,
+            "account_no": 100007,
+            "account_holder_name": "shivam"
+        },
+        {
+            "balance": 7000,
+            "account_no": 100008,
+            "account_holder_name": "chand"
+        },
+        {
+            "balance": 9000,
+            "account_no": 100009,
+            "account_holder_name": "ramesh"
+        }
+    ],
+    "no_of_accounts": 100010
+}
