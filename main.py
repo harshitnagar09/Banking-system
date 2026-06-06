@@ -171,7 +171,7 @@ while True:
         print("You do not have an account in our bank or Enter a valid account number ")
     elif 5==a:
       Bankdata.save_data(accounts,no_of_accounts)
-      print("Data sucessfully store")
+      print("Data saved successfully.")
       break
     else:
       print("Select a Valid Option")
