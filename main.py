@@ -3,10 +3,12 @@ import os
 
 class BankAccount:
 
-  def __init__(self,balance,account_no,account_holder_name):
+  def __init__(self,balance,account_no,account_holder_name,account_pin):
     self.balance = balance
     self.account_no = account_no
     self.account_holder_name = account_holder_name
+    self.account_pin = account_pin
+
   
   def display(self):
     print("Here are your account details:")
@@ -53,7 +55,8 @@ class Bankdata:
       acc = BankAccount(
           acc_data["balance"],
           acc_data["account_no"],
-          acc_data["account_holder_name"]
+          acc_data["account_holder_name"],
+          acc_data["account_pin"]
     )
       accounts.append(acc)
 
@@ -84,14 +87,15 @@ while True:
   
       try:
         initial_deposit = int(input("Enter the amount of initial deposit: "))
+        account_pin = int(input("Enter the PIN number: "))
         if initial_deposit <= 0:
           print("Amount must be greater than 0.")
           continue
-
       except ValueError:
         print("Please enter a valid number.")
         continue
-      acc = BankAccount(initial_deposit,no_of_accounts,name)
+
+      acc = BankAccount(initial_deposit,no_of_accounts,name,account_pin)
       accounts.append(acc)
       print("Your Account is created")
       acc.display()
@@ -101,7 +105,9 @@ while True:
     elif 2==a:
       
       try:
+        print("Login")
         account_number = int(input("Enter your Account Number: "))
+        account_pin = int(input("Enter the pin: "))
       except ValueError:
         print("Please enter a valid number.")
         continue
@@ -130,7 +136,9 @@ while True:
     elif 3==a:
       
       try:
+        print("Login")
         account_number = int(input("Enter your Account Number: "))
+        account_pin = int(input("Enter the pin: "))
       except ValueError:
         print("Please enter a valid number.")
         continue
@@ -156,7 +164,9 @@ while True:
     elif 4==a:
       
       try:
+        print("Login")
         account_number = int(input("Enter your Account Number: "))
+        account_pin = int(input("Enter the pin: "))
       except ValueError:
         print("Please enter a valid number.")
         continue
@@ -175,5 +185,5 @@ while True:
       break
     else:
       print("Select a Valid Option")
-      
+  
     
