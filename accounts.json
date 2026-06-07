@@ -2,34 +2,30 @@
     "accounts": [
         {
             "balance": 5000,
-            "account_no": 100004,
-            "account_holder_name": "harshit"
-        },
-        {
-            "balance": 5100,
-            "account_no": 100005,
-            "account_holder_name": "chandan"
-        },
-        {
-            "balance": 15000,
-            "account_no": 100006,
-            "account_holder_name": "harshit nagar"
-        },
-        {
-            "balance": 12000,
-            "account_no": 100007,
-            "account_holder_name": "shivam"
+            "account_no": 100000,
+            "account_holder_name": "Harshit Nagar",
+            "account_pin": 6969,
+            "transactions": [
+                {
+                    "type": "Account Opened",
+                    "amount": 5000,
+                    "balance": 5000
+                }
+            ]
         },
         {
             "balance": 7000,
-            "account_no": 100008,
-            "account_holder_name": "chand"
-        },
-        {
-            "balance": 9000,
-            "account_no": 100009,
-            "account_holder_name": "ramesh"
+            "account_no": 100001,
+            "account_holder_name": "disha",
+            "account_pin": 1234,
+            "transactions": [
+                {
+                    "type": "Account Opened",
+                    "amount": 7000,
+                    "balance": 7000
+                }
+            ]
         }
     ],
-    "no_of_accounts": 100010
+    "no_of_accounts": 100002
 }

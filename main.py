@@ -3,12 +3,12 @@ import os
 
 class BankAccount:
 
-  def __init__(self,balance,account_no,account_holder_name,account_pin):
+  def __init__(self,balance,account_no,account_holder_name,account_pin,transactions=None):
     self.balance = balance
     self.account_no = account_no
     self.account_holder_name = account_holder_name
     self.account_pin = account_pin
-
+    self.transactions = transactions if transactions is not None else []
   
   def display(self):
     print("Here are your account details:")
@@ -18,6 +18,11 @@ class BankAccount:
   
   def credit(self,credit_amount):
     self.balance = self.balance + credit_amount
+    self.transactions.append({
+      "type": "Credit",
+      "amount": credit_amount,
+      "balance": self.balance
+      })
     print(credit_amount ,"credited to your account\nYour Balance :",self.balance)
   
   def debit(self,amount):
@@ -25,8 +30,15 @@ class BankAccount:
       print("Insufficient balance",self.balance)
     else:
       self.balance-= amount
+      self.transactions.append({
+        "type": "Debit",
+        "amount": amount,
+        "balance": self.balance
+        })
       print(amount,"Debit from your account")
-      print("Remaining balance : ",self.balance)
+      print("Remaining balance :",self.balance)
+  def balance_update(self):
+    self.transactions.append({"type": "Balance Update", "amount": 0, "balance": self.balance})
 
 class Bankdata:
   
@@ -56,7 +68,8 @@ class Bankdata:
           acc_data["balance"],
           acc_data["account_no"],
           acc_data["account_holder_name"],
-          acc_data["account_pin"]
+          acc_data["account_pin"],
+          acc_data["transactions"]
     )
       accounts.append(acc)
 
@@ -71,7 +84,8 @@ while True:
   "Press 2 if you want to Deposit money\n"
   "Press 3 if you want to withdraw money\n"
   "Press 4 if you want to check balance\n"
-  "Press 5 For Exit"
+  "Press 5 if you want to view Transaction History\n"
+  "Press 6 For Exit"
 )   
     try:
       a = int(input("Enter Your choice: "))
@@ -86,14 +100,15 @@ while True:
         continue             
   
       try:
-        initial_deposit = int(input("Enter the amount of initial deposit: "))
         account_pin = int(input("Enter a 4-digit PIN: "))
         if account_pin < 1000 or account_pin > 9999:
           print("PIN must be 4 digits.")
           continue
+        initial_deposit = int(input("Enter the amount of initial deposit: "))
         if initial_deposit <= 0:
           print("Amount must be greater than 0.")
           continue
+        
       except ValueError:
         print("Please enter a valid number.")
         continue
@@ -101,6 +116,11 @@ while True:
       acc = BankAccount(initial_deposit,no_of_accounts,name,account_pin)
       accounts.append(acc)
       print("Your Account is created")
+      acc.transactions.append({
+      "type": "Account Opened",
+      "amount": initial_deposit,
+      "balance": initial_deposit
+      })
       acc.display()
       no_of_accounts +=1
 
@@ -153,7 +173,7 @@ while True:
       for i in accounts:
         if i.account_no==account_number:
           found = True
-          if i.account_pin != account_pin:   # ← add this
+          if i.account_pin != account_pin:  
             print("Incorrect PIN.")
             break
           try:
@@ -184,7 +204,7 @@ while True:
       for i in accounts:
         if i.account_no==account_number:
           found = True
-          if i.account_pin != account_pin:   # ← add this
+          if i.account_pin != account_pin:  
             print("Incorrect PIN.")
             break
           i.display()
@@ -192,6 +212,28 @@ while True:
       if not found:
         print("You do not have an account in our bank or Enter a valid account number ")
     elif 5==a:
+      
+      try:
+        print("Login")
+        account_number = int(input("Enter your Account Number: "))
+        account_pin = int(input("Enter the pin: "))
+      except ValueError:
+        print("Please enter a valid number.")
+        continue
+
+      found = False
+      for i in accounts:
+        if i.account_no==account_number:
+          found = True
+          if i.account_pin != account_pin:  
+            print("Incorrect PIN.")
+            break
+          for t in i.transactions:
+            print(f"  {t['type']:<15}  Amount: {t['amount']:<10}  Balance: {t['balance']}")
+          break
+      if not found:
+        print("You do not have an account in our bank or Enter a valid account number ")
+    elif 6==a:
       Bankdata.save_data(accounts,no_of_accounts)
       print("Data saved successfully.")
       break
