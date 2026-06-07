@@ -87,7 +87,10 @@ while True:
   
       try:
         initial_deposit = int(input("Enter the amount of initial deposit: "))
-        account_pin = int(input("Enter the PIN number: "))
+        account_pin = int(input("Enter a 4-digit PIN: "))
+        if account_pin < 1000 or account_pin > 9999:
+          print("PIN must be 4 digits.")
+          continue
         if initial_deposit <= 0:
           print("Amount must be greater than 0.")
           continue
