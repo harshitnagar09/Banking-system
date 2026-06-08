@@ -37,8 +37,7 @@ class BankAccount:
         })
       print(amount,"Debit from your account")
       print("Remaining balance :",self.balance)
-  def balance_update(self):
-    self.transactions.append({"type": "Balance Update", "amount": 0, "balance": self.balance})
+  
 
 class Bankdata:
   
